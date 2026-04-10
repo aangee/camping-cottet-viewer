@@ -48,6 +48,7 @@ function HebergementMarker({ h, isHighlighted, onClick }) {
       style={{ cursor: 'pointer' }}
       onClick={(e) => { e.stopPropagation(); onClick(h.id) }}
     >
+      <circle cx={h.cx} cy={h.cy} r={28} fill="transparent" />
       {isHighlighted && (
         <circle className="pulse-ring" cx={h.cx} cy={h.cy} r={22}
           fill="none" stroke={colors.stroke} strokeWidth={2.5} opacity={0.9} />
@@ -71,6 +72,7 @@ function BorneEauMarker({ b, isHighlighted, onClick }) {
       style={{ cursor: 'pointer' }}
       onClick={(e) => { e.stopPropagation(); onClick(b.id) }}
     >
+      <circle cx={b.x} cy={b.y} r={28} fill="transparent" />
       {isHighlighted && (
         <circle className="pulse-ring" cx={b.x} cy={b.y} r={22}
           fill="none" stroke="#38bdf8" strokeWidth={2.5} opacity={0.9} />
@@ -93,6 +95,7 @@ function BorneElecMarker({ b, isHighlighted, onClick }) {
       style={{ cursor: 'pointer' }}
       onClick={(e) => { e.stopPropagation(); onClick(b.id) }}
     >
+      <circle cx={b.x} cy={b.y} r={28} fill="transparent" />
       {isHighlighted && (
         <circle className="pulse-ring" cx={b.x} cy={b.y} r={22}
           fill="none" stroke="#fbbf24" strokeWidth={2.5} opacity={0.9} />
@@ -183,7 +186,7 @@ function zoomToFitSelection(transformRef, selected, data) {
 
   if (!points.length) return
 
-  const pad = 120
+  const pad = 60
   const minX = Math.min(...points.map(p => p.x)) - pad
   const maxX = Math.max(...points.map(p => p.x)) + pad
   const minY = Math.min(...points.map(p => p.y)) - pad
@@ -194,7 +197,7 @@ function zoomToFitSelection(transformRef, selected, data) {
   const availW = window.innerWidth
   const availH = window.innerHeight * 0.58  // au-dessus de la sheet
 
-  const scale = Math.min(availW / boxW, availH / boxH, 1.8)
+  const scale = Math.min(availW / boxW, availH / boxH, 2.5)
 
   const cx = (minX + maxX) / 2
   const cy = (minY + maxY) / 2
@@ -209,7 +212,7 @@ export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSe
 
   useEffect(() => {
     zoomToFitSelection(transformRef, selected, data)
-  }, [selected])
+  }, [selected, data])
 
   if (!data) return null
 
