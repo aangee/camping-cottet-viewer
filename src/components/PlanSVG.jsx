@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
 const VB_W = 2560
@@ -116,15 +117,40 @@ function BorneElecMarker({ b, isHighlighted, onClick }) {
   )
 }
 
-export function PlanSVG({ data, highlighted, onSelectHebergement, onSelectBorne, onDeselect }) {
+export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSelectBorne, onDeselect }) {
+  const transformRef = useRef(null)
+  const scaleRef = useRef(0.3)
+
+  useEffect(() => {
+    if (!selected || !data || !transformRef.current) return
+    let cx, cy
+    if (selected.type === 'hebergement') {
+      const h = data.hebergements.find(x => x.id === selected.id)
+      if (h) { cx = h.cx; cy = h.cy }
+    } else if (selected.type === 'borne_eau') {
+      const b = data.bornes_eau.find(x => x.id === selected.id)
+      if (b) { cx = b.x; cy = b.y }
+    } else if (selected.type === 'borne_elec') {
+      const b = data.bornes_elec.find(x => x.id === selected.id)
+      if (b) { cx = b.x; cy = b.y }
+    }
+    if (cx === undefined) return
+    const scale = scaleRef.current
+    const tx = window.innerWidth / 2 - cx * scale
+    const ty = window.innerHeight * 0.35 - cy * scale
+    transformRef.current.setTransform(tx, ty, scale, 300, 'easeOut')
+  }, [selected])
+
   if (!data) return null
 
   return (
     <TransformWrapper
+      ref={transformRef}
       initialScale={0.3}
       minScale={0.1}
       maxScale={4}
       centerOnInit
+      onTransformed={(_, state) => { scaleRef.current = state.scale }}
     >
       <TransformComponent
         wrapperStyle={{ width: '100vw', height: '100vh' }}

@@ -26,6 +26,7 @@ export default function App() {
       <PlanSVG
         data={data}
         highlighted={highlighted}
+        selected={selected}
         onSelectHebergement={handleSelectHebergement}
         onSelectBorne={handleSelectBorne}
         onDeselect={handleDeselect}
