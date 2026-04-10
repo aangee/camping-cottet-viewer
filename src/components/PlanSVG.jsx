@@ -15,6 +15,39 @@ const TYPE_COLORS = {
   emplacement_nu:{ fill: '#14532d', stroke: '#22c55e' },
 }
 
+// Maison centrée en (0,0) — murs + toit
+function HouseIcon({ fill, stroke }) {
+  return (
+    <>
+      {/* Toit */}
+      <polygon points="0,-16 -13,-3 13,-3"
+        fill={stroke} opacity={0.95} />
+      {/* Murs */}
+      <rect x="-9" y="-3" width="18" height="14" rx="1"
+        fill={fill} stroke={stroke} strokeWidth={1.5} />
+      {/* Porte */}
+      <rect x="-3" y="4" width="6" height="7"
+        fill={stroke} opacity={0.7} />
+    </>
+  )
+}
+
+// Goutte d'eau centrée en (0,0)
+function DropIcon({ fill, stroke }) {
+  return (
+    <path d="M 0,-14 C -8,-5 -10,1 -10,5 C -10,11 -5,15 0,15 C 5,15 10,11 10,5 C 10,1 8,-5 0,-14 Z"
+      fill={fill} stroke={stroke} strokeWidth={2} />
+  )
+}
+
+// Éclair centré en (0,0)
+function BoltIcon({ fill, stroke }) {
+  return (
+    <path d="M 4,-14 L -5,2 L 2,2 L -5,14 L 11,-2 L 3,-2 L 10,-14 Z"
+      fill={fill} stroke={stroke} strokeWidth={1.5} />
+  )
+}
+
 function HebergementMarker({ h, isHighlighted, onClick }) {
   const colors = TYPE_COLORS[h.type] ?? { fill: '#1f2937', stroke: '#6b7280' }
   return (
@@ -24,12 +57,13 @@ function HebergementMarker({ h, isHighlighted, onClick }) {
       onClick={(e) => { e.stopPropagation(); onClick(h.id) }}
     >
       {isHighlighted && (
-        <circle className="pulse-ring" cx={h.cx} cy={h.cy} r={18}
+        <circle className="pulse-ring" cx={h.cx} cy={h.cy} r={22}
           fill="none" stroke={colors.stroke} strokeWidth={2.5} opacity={0.9} />
       )}
-      <circle cx={h.cx} cy={h.cy} r={14}
-        fill={colors.fill} stroke={colors.stroke} strokeWidth={2} />
-      <text x={h.cx} y={h.cy} textAnchor="middle" dominantBaseline="central"
+      <g transform={`translate(${h.cx}, ${h.cy})`}>
+        <HouseIcon fill={colors.fill} stroke={colors.stroke} />
+      </g>
+      <text x={h.cx} y={h.cy + 27} textAnchor="middle"
         fontSize={10} fontWeight="700" fill={colors.stroke}
         fontFamily="'Courier New', monospace" pointerEvents="none">
         {h.nom}
@@ -38,7 +72,7 @@ function HebergementMarker({ h, isHighlighted, onClick }) {
   )
 }
 
-function BorneMarker({ b, color, darkColor, isHighlighted, onClick }) {
+function BorneEauMarker({ b, isHighlighted, onClick }) {
   return (
     <g
       className={isHighlighted ? 'marker-highlighted' : ''}
@@ -46,13 +80,36 @@ function BorneMarker({ b, color, darkColor, isHighlighted, onClick }) {
       onClick={(e) => { e.stopPropagation(); onClick(b.id) }}
     >
       {isHighlighted && (
-        <circle className="pulse-ring" cx={b.x} cy={b.y} r={18}
-          fill="none" stroke={color} strokeWidth={2.5} opacity={0.9} />
+        <circle className="pulse-ring" cx={b.x} cy={b.y} r={22}
+          fill="none" stroke="#38bdf8" strokeWidth={2.5} opacity={0.9} />
       )}
-      <circle cx={b.x} cy={b.y} r={14} fill={darkColor} stroke={color} strokeWidth={2} />
-      <circle cx={b.x} cy={b.y} r={5} fill={color} />
-      <text x={b.x} y={b.y + 26} textAnchor="middle" fontSize={9} fontWeight="700"
-        fill={color} fontFamily="'Courier New', monospace" pointerEvents="none">
+      <g transform={`translate(${b.x}, ${b.y})`}>
+        <DropIcon fill="#0c4a6e" stroke="#38bdf8" />
+      </g>
+      <text x={b.x} y={b.y + 28} textAnchor="middle" fontSize={9} fontWeight="700"
+        fill="#38bdf8" fontFamily="'Courier New', monospace" pointerEvents="none">
+        {b.num}
+      </text>
+    </g>
+  )
+}
+
+function BorneElecMarker({ b, isHighlighted, onClick }) {
+  return (
+    <g
+      className={isHighlighted ? 'marker-highlighted' : ''}
+      style={{ cursor: 'pointer' }}
+      onClick={(e) => { e.stopPropagation(); onClick(b.id) }}
+    >
+      {isHighlighted && (
+        <circle className="pulse-ring" cx={b.x} cy={b.y} r={22}
+          fill="none" stroke="#fbbf24" strokeWidth={2.5} opacity={0.9} />
+      )}
+      <g transform={`translate(${b.x}, ${b.y})`}>
+        <BoltIcon fill="#451a03" stroke="#fbbf24" />
+      </g>
+      <text x={b.x} y={b.y + 28} textAnchor="middle" fontSize={9} fontWeight="700"
+        fill="#fbbf24" fontFamily="'Courier New', monospace" pointerEvents="none">
         {b.num}
       </text>
     </g>
@@ -92,22 +149,18 @@ export function PlanSVG({ data, highlighted, onSelectHebergement, onSelectBorne,
           ))}
 
           {data.bornes_eau.map(b => (
-            <BorneMarker
+            <BorneEauMarker
               key={b.id}
               b={b}
-              color="#38bdf8"
-              darkColor="#0c4a6e"
               isHighlighted={highlighted.bornes_eau.has(b.id)}
               onClick={(id) => onSelectBorne('borne_eau', id)}
             />
           ))}
 
           {data.bornes_elec.map(b => (
-            <BorneMarker
+            <BorneElecMarker
               key={b.id}
               b={b}
-              color="#fbbf24"
-              darkColor="#451a03"
               isHighlighted={highlighted.bornes_elec.has(b.id)}
               onClick={(id) => onSelectBorne('borne_elec', id)}
             />
