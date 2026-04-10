@@ -56,12 +56,6 @@ html, body, #root {
 .sheet-row:last-child { border-bottom: none; }
 .sheet-label { color: #94a3b8; font-size: 13px; }
 
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background: transparent;
-  z-index: 99;
-}
 
 .install-prompt {
   position: fixed;

@@ -96,12 +96,9 @@ export function BottomSheet({ selected, data, onClose }) {
   })()
 
   return (
-    <>
-      {isOpen && <div className="backdrop" onClick={onClose} />}
-      <div className={`bottom-sheet ${isOpen ? 'open' : ''}`}>
-        <div className="bottom-sheet-handle" />
-        {content}
-      </div>
-    </>
+    <div className={`bottom-sheet ${isOpen ? 'open' : ''}`}>
+      <div className="bottom-sheet-handle" onClick={onClose} style={{ cursor: 'pointer' }} />
+      {content}
+    </div>
   )
 }
