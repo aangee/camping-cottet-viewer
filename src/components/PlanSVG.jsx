@@ -16,24 +16,16 @@ const TYPE_COLORS = {
   emplacement_nu:{ fill: '#14532d', stroke: '#22c55e' },
 }
 
-// Maison centrée en (0,0) — murs + toit
 function HouseIcon({ fill, stroke }) {
   return (
     <>
-      {/* Toit */}
-      <polygon points="0,-16 -13,-3 13,-3"
-        fill={stroke} opacity={0.95} />
-      {/* Murs */}
-      <rect x="-9" y="-3" width="18" height="14" rx="1"
-        fill={fill} stroke={stroke} strokeWidth={1.5} />
-      {/* Porte */}
-      <rect x="-3" y="4" width="6" height="7"
-        fill={stroke} opacity={0.7} />
+      <polygon points="0,-16 -13,-3 13,-3" fill={stroke} opacity={0.95} />
+      <rect x="-9" y="-3" width="18" height="14" rx="1" fill={fill} stroke={stroke} strokeWidth={1.5} />
+      <rect x="-3" y="4" width="6" height="7" fill={stroke} opacity={0.7} />
     </>
   )
 }
 
-// Goutte d'eau centrée en (0,0)
 function DropIcon({ fill, stroke }) {
   return (
     <path d="M 0,-14 C -8,-5 -10,1 -10,5 C -10,11 -5,15 0,15 C 5,15 10,11 10,5 C 10,1 8,-5 0,-14 Z"
@@ -41,7 +33,6 @@ function DropIcon({ fill, stroke }) {
   )
 }
 
-// Éclair centré en (0,0)
 function BoltIcon({ fill, stroke }) {
   return (
     <path d="M 4,-14 L -5,2 L 2,2 L -5,14 L 11,-2 L 3,-2 L 10,-14 Z"
@@ -117,28 +108,107 @@ function BorneElecMarker({ b, isHighlighted, onClick }) {
   )
 }
 
+// Lignes pointillées entre hébergement et ses bornes (ou borne et ses hébergements)
+function ConnectionLines({ selected, data }) {
+  if (!selected || !data) return null
+  const lines = []
+
+  if (selected.type === 'hebergement') {
+    const h = data.hebergements.find(x => x.id === selected.id)
+    if (!h) return null
+    if (h.borne_eau) {
+      const b = data.bornes_eau.find(x => x.id === h.borne_eau)
+      if (b) lines.push({ x1: h.cx, y1: h.cy, x2: b.x, y2: b.y, color: '#38bdf8' })
+    }
+    if (h.borne_elec) {
+      const b = data.bornes_elec.find(x => x.id === h.borne_elec)
+      if (b) lines.push({ x1: h.cx, y1: h.cy, x2: b.x, y2: b.y, color: '#fbbf24' })
+    }
+  } else if (selected.type === 'borne_eau') {
+    const b = data.bornes_eau.find(x => x.id === selected.id)
+    if (!b) return null
+    data.hebergements
+      .filter(h => h.borne_eau === b.id)
+      .forEach(h => lines.push({ x1: b.x, y1: b.y, x2: h.cx, y2: h.cy, color: '#38bdf8' }))
+  } else if (selected.type === 'borne_elec') {
+    const b = data.bornes_elec.find(x => x.id === selected.id)
+    if (!b) return null
+    data.hebergements
+      .filter(h => h.borne_elec === b.id)
+      .forEach(h => lines.push({ x1: b.x, y1: b.y, x2: h.cx, y2: h.cy, color: '#fbbf24' }))
+  }
+
+  return (
+    <>
+      {lines.map((l, i) => (
+        <line key={i}
+          x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
+          stroke={l.color} strokeWidth={3} strokeDasharray="14 8"
+          opacity={0.7} pointerEvents="none" />
+      ))}
+    </>
+  )
+}
+
+// Calcule les points impliqués et zoome pour les englober tous
+function zoomToFitSelection(transformRef, selected, data) {
+  if (!selected || !data || !transformRef.current) return
+  const points = []
+
+  if (selected.type === 'hebergement') {
+    const h = data.hebergements.find(x => x.id === selected.id)
+    if (!h) return
+    points.push({ x: h.cx, y: h.cy })
+    if (h.borne_eau) {
+      const b = data.bornes_eau.find(x => x.id === h.borne_eau)
+      if (b) points.push({ x: b.x, y: b.y })
+    }
+    if (h.borne_elec) {
+      const b = data.bornes_elec.find(x => x.id === h.borne_elec)
+      if (b) points.push({ x: b.x, y: b.y })
+    }
+  } else if (selected.type === 'borne_eau') {
+    const b = data.bornes_eau.find(x => x.id === selected.id)
+    if (!b) return
+    points.push({ x: b.x, y: b.y })
+    data.hebergements.filter(h => h.borne_eau === b.id)
+      .forEach(h => points.push({ x: h.cx, y: h.cy }))
+  } else if (selected.type === 'borne_elec') {
+    const b = data.bornes_elec.find(x => x.id === selected.id)
+    if (!b) return
+    points.push({ x: b.x, y: b.y })
+    data.hebergements.filter(h => h.borne_elec === b.id)
+      .forEach(h => points.push({ x: h.cx, y: h.cy }))
+  }
+
+  if (!points.length) return
+
+  const pad = 120
+  const minX = Math.min(...points.map(p => p.x)) - pad
+  const maxX = Math.max(...points.map(p => p.x)) + pad
+  const minY = Math.min(...points.map(p => p.y)) - pad
+  const maxY = Math.max(...points.map(p => p.y)) + pad
+
+  const boxW = maxX - minX
+  const boxH = maxY - minY
+  const availW = window.innerWidth
+  const availH = window.innerHeight * 0.58  // au-dessus de la sheet
+
+  const scale = Math.min(availW / boxW, availH / boxH, 1.8)
+
+  const cx = (minX + maxX) / 2
+  const cy = (minY + maxY) / 2
+  const tx = availW / 2 - cx * scale
+  const ty = availH / 2 - cy * scale
+
+  transformRef.current.setTransform(tx, ty, scale, 350, 'easeOut')
+}
+
 export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSelectBorne, onDeselect }) {
   const transformRef = useRef(null)
-  const scaleRef = useRef(0.3)
 
   useEffect(() => {
-    if (!selected || !data || !transformRef.current) return
-    let cx, cy
-    if (selected.type === 'hebergement') {
-      const h = data.hebergements.find(x => x.id === selected.id)
-      if (h) { cx = h.cx; cy = h.cy }
-    } else if (selected.type === 'borne_eau') {
-      const b = data.bornes_eau.find(x => x.id === selected.id)
-      if (b) { cx = b.x; cy = b.y }
-    } else if (selected.type === 'borne_elec') {
-      const b = data.bornes_elec.find(x => x.id === selected.id)
-      if (b) { cx = b.x; cy = b.y }
-    }
-    if (cx === undefined) return
-    const scale = scaleRef.current
-    const tx = window.innerWidth / 2 - cx * scale
-    const ty = window.innerHeight * 0.35 - cy * scale
-    transformRef.current.setTransform(tx, ty, scale, 300, 'easeOut')
+    zoomToFitSelection(transformRef, selected, data)
   }, [selected])
 
   if (!data) return null
@@ -150,7 +220,6 @@ export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSe
       minScale={0.1}
       maxScale={4}
       centerOnInit
-      onTransformed={(_, state) => { scaleRef.current = state.scale }}
     >
       <TransformComponent
         wrapperStyle={{ width: '100vw', height: '100vh' }}
@@ -164,6 +233,8 @@ export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSe
           <image href={`${import.meta.env.BASE_URL}plan_fond.png`}
             x={0} y={0} width={VB_W} height={VB_H}
             opacity={0.5} style={{ pointerEvents: 'none' }} />
+
+          <ConnectionLines selected={selected} data={data} />
 
           {data.hebergements.map(h => (
             <HebergementMarker
