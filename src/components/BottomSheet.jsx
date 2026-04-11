@@ -8,6 +8,7 @@ const LABELS = {
   chalet_eco:   'Chalet Eco-lodge',
   caravane:     'Caravane',
   emplacement_nu:'Emplacement nu',
+  piscine:       'Piscine',
 }
 
 function HebergementContent({ h }) {

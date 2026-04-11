@@ -14,6 +14,7 @@ const TYPE_COLORS = {
   chalet_eco:    { fill: '#292524', stroke: '#a16207' },
   caravane:      { fill: '#450a0a', stroke: '#ef4444' },
   emplacement_nu:{ fill: '#14532d', stroke: '#22c55e' },
+  piscine:       { fill: '#0c3d5e', stroke: '#22d3ee' },
 }
 
 function HouseIcon({ fill, stroke }) {
