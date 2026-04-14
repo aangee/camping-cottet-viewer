@@ -422,6 +422,42 @@
       "borne_elec": "ELEC-10",
       "cx": 644,
       "cy": 979
+    },
+    {
+      "id": "guinguette",
+      "nom": "Guinguette",
+      "type": "infra",
+      "borne_eau": "EAU-05",
+      "borne_elec": "ELEC-00",
+      "cx": 522,
+      "cy": 581
+    },
+    {
+      "id": "jeux-nord",
+      "nom": "Aire de jeux",
+      "type": "infra",
+      "borne_eau": "EAU-05",
+      "borne_elec": null,
+      "cx": 606,
+      "cy": 759
+    },
+    {
+      "id": "sanitaires",
+      "nom": "Sanitaires",
+      "type": "infra",
+      "borne_eau": "EAU-99",
+      "borne_elec": "ELEC-99",
+      "cx": 1374,
+      "cy": 1213
+    },
+    {
+      "id": "piscine",
+      "nom": "Piscine",
+      "type": "piscine",
+      "borne_eau": "EAU-09",
+      "borne_elec": "ELEC-00",
+      "cx": 738,
+      "cy": 561
     }
   ],
   "bornes_eau": [
@@ -435,7 +471,8 @@
         "2",
         "3",
         "4"
-      ]
+      ],
+      "note": "Possibilité branchement tuyau d'arrosage"
     },
     {
       "id": "EAU-02",
@@ -445,7 +482,8 @@
       "parcelles": [
         "14",
         "15"
-      ]
+      ],
+      "note": "Yourte Yoann — Puits bas — Puits pompe (robinets eau potable)"
     },
     {
       "id": "EAU-03",
@@ -468,21 +506,28 @@
         "11",
         "12",
         "17"
-      ]
+      ],
+      "note": "Emplacement 13 non raccordé"
     },
     {
       "id": "EAU-05",
       "num": "EAU-05",
       "x": 763,
       "y": 955,
-      "parcelles": []
+      "parcelles": [
+        "guinguette",
+        "jeux-nord"
+      ]
     },
     {
       "id": "EAU-06",
       "num": "EAU-06",
       "x": 1153,
       "y": 1204,
-      "parcelles": []
+      "parcelles": [],
+      "distribue_vers": [
+        "EAU-99"
+      ]
     },
     {
       "id": "EAU-07",
@@ -493,7 +538,8 @@
         "21",
         "39",
         "40"
-      ]
+      ],
+      "note": "Puits eau potable"
     },
     {
       "id": "EAU-08",
@@ -512,22 +558,31 @@
       "x": 710,
       "y": 427,
       "parcelles": [
-        "5"
-      ]
+        "5",
+        "piscine"
+      ],
+      "note": "Vidange"
     },
     {
       "id": "EAU-00",
       "num": "EAU-00",
       "x": 231,
       "y": 674,
-      "parcelles": []
+      "parcelles": [],
+      "note": "Arrivée eau d'irrigation"
     },
     {
       "id": "EAU-99",
       "num": "EAU-99",
       "x": 1384,
       "y": 1291,
-      "parcelles": []
+      "parcelles": [
+        "sanitaires"
+      ],
+      "distribue_vers": [
+        "EAU-07"
+      ],
+      "note": "Vanne secteur EAU-07 — coupe eau potable + irrigation"
     }
   ],
   "bornes_elec": [
@@ -576,14 +631,31 @@
       "num": "ELEC-00",
       "x": 533,
       "y": 689,
-      "parcelles": []
+      "parcelles": [
+        "piscine",
+        "guinguette"
+      ],
+      "distribue_vers": [
+        "ELEC-07",
+        "ELEC-08",
+        "ELEC-09",
+        "ELEC-10"
+      ]
     },
     {
       "id": "ELEC-99",
       "num": "ELEC-99",
       "x": 1402,
       "y": 1281,
-      "parcelles": []
+      "parcelles": [
+        "sanitaires"
+      ],
+      "distribue_vers": [
+        "ELEC-11",
+        "ELEC-12",
+        "ELEC-13",
+        "ELEC-14"
+      ]
     },
     {
       "id": "ELEC-12",

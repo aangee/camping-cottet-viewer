@@ -8,13 +8,14 @@ const TYPE_COLORS = {
   mh_2ch_3p:     { fill: '#431407', stroke: '#f97316' },
   mh_2ch_4p:     { fill: '#422006', stroke: '#facc15' },
   mh_3ch_6p:     { fill: '#0c4a6e', stroke: '#7dd3fc' },
-  resident:      { fill: '#1f2937', stroke: '#6b7280' },
+  resident:      { fill: '#374151', stroke: '#6b7280' },
   dome_cocoon:   { fill: '#3b0764', stroke: '#a78bfa' },
   tente_equipee: { fill: '#422006', stroke: '#facc15' },
   chalet_eco:    { fill: '#292524', stroke: '#a16207' },
   caravane:      { fill: '#450a0a', stroke: '#ef4444' },
   emplacement_nu:{ fill: '#14532d', stroke: '#22c55e' },
   piscine:       { fill: '#0c3d5e', stroke: '#22d3ee' },
+  infra:         { fill: '#134e4a', stroke: '#2dd4bf' },
 }
 
 function HouseIcon({ fill, stroke }) {
@@ -41,6 +42,17 @@ function BoltIcon({ fill, stroke }) {
   )
 }
 
+function BuildingIcon({ fill, stroke }) {
+  return (
+    <>
+      <rect x="-13" y="-13" width="26" height="26" rx="2" fill={fill} stroke={stroke} strokeWidth={1.5} />
+      <rect x="-8" y="-7" width="5" height="6" fill={stroke} opacity={0.8} />
+      <rect x="3"  y="-7" width="5" height="6" fill={stroke} opacity={0.8} />
+      <rect x="-4" y="3"  width="8" height="10" rx="1" fill={stroke} opacity={0.7} />
+    </>
+  )
+}
+
 function HebergementMarker({ h, isHighlighted, onClick }) {
   const colors = TYPE_COLORS[h.type] ?? { fill: '#1f2937', stroke: '#6b7280' }
   return (
@@ -54,8 +66,10 @@ function HebergementMarker({ h, isHighlighted, onClick }) {
         <circle className="pulse-ring" cx={h.cx} cy={h.cy} r={22}
           fill="none" stroke={colors.stroke} strokeWidth={2.5} opacity={0.9} />
       )}
-      <g transform={`translate(${h.cx}, ${h.cy})`}>
-        <HouseIcon fill={colors.fill} stroke={colors.stroke} />
+      <g transform={`translate(${h.cx}, ${h.cy})`} filter="url(#icon-border)">
+        {h.type === 'infra'
+          ? <BuildingIcon fill={colors.fill} stroke={colors.stroke} />
+          : <HouseIcon    fill={colors.fill} stroke={colors.stroke} />}
       </g>
       <text x={h.cx} y={h.cy + 27} textAnchor="middle"
         fontSize={10} fontWeight="700" fill={colors.stroke}
@@ -134,12 +148,20 @@ function ConnectionLines({ selected, data }) {
     data.hebergements
       .filter(h => h.borne_eau === b.id)
       .forEach(h => lines.push({ x1: b.x, y1: b.y, x2: h.cx, y2: h.cy, color: '#38bdf8' }))
+    ;(b.distribue_vers ?? []).forEach(targetId => {
+      const t = data.bornes_eau.find(x => x.id === targetId)
+      if (t) lines.push({ x1: b.x, y1: b.y, x2: t.x, y2: t.y, color: '#38bdf8', thin: true })
+    })
   } else if (selected.type === 'borne_elec') {
     const b = data.bornes_elec.find(x => x.id === selected.id)
     if (!b) return null
     data.hebergements
       .filter(h => h.borne_elec === b.id)
       .forEach(h => lines.push({ x1: b.x, y1: b.y, x2: h.cx, y2: h.cy, color: '#fbbf24' }))
+    ;(b.distribue_vers ?? []).forEach(targetId => {
+      const t = data.bornes_elec.find(x => x.id === targetId)
+      if (t) lines.push({ x1: b.x, y1: b.y, x2: t.x, y2: t.y, color: '#fbbf24', thin: true })
+    })
   }
 
   return (
@@ -147,8 +169,11 @@ function ConnectionLines({ selected, data }) {
       {lines.map((l, i) => (
         <line key={i}
           x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
-          stroke={l.color} strokeWidth={3} strokeDasharray="14 8"
-          opacity={0.7} pointerEvents="none" />
+          stroke={l.color}
+          strokeWidth={l.thin ? 1.5 : 3}
+          strokeDasharray={l.thin ? '4 6' : '14 8'}
+          opacity={l.thin ? 0.55 : 0.7}
+          pointerEvents="none" />
       ))}
     </>
   )
@@ -177,12 +202,20 @@ function zoomToFitSelection(transformRef, selected, data) {
     points.push({ x: b.x, y: b.y })
     data.hebergements.filter(h => h.borne_eau === b.id)
       .forEach(h => points.push({ x: h.cx, y: h.cy }))
+    ;(b.distribue_vers ?? []).forEach(targetId => {
+      const t = data.bornes_eau.find(x => x.id === targetId)
+      if (t) points.push({ x: t.x, y: t.y })
+    })
   } else if (selected.type === 'borne_elec') {
     const b = data.bornes_elec.find(x => x.id === selected.id)
     if (!b) return
     points.push({ x: b.x, y: b.y })
     data.hebergements.filter(h => h.borne_elec === b.id)
       .forEach(h => points.push({ x: h.cx, y: h.cy }))
+    ;(b.distribue_vers ?? []).forEach(targetId => {
+      const t = data.bornes_elec.find(x => x.id === targetId)
+      if (t) points.push({ x: t.x, y: t.y })
+    })
   }
 
   if (!points.length) return
@@ -234,6 +267,17 @@ export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSe
           style={{ width: VB_W, height: VB_H, display: 'block' }}
           onClick={onDeselect}
         >
+          <defs>
+            <filter id="icon-border" x="-30%" y="-30%" width="160%" height="160%">
+              <feMorphology in="SourceAlpha" operator="dilate" radius="0.5" result="expanded"/>
+              <feFlood floodColor="white" floodOpacity="0.85" result="white"/>
+              <feComposite in="white" in2="expanded" operator="in" result="border"/>
+              <feMerge>
+                <feMergeNode in="border"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
           <image href={`${import.meta.env.BASE_URL}plan_fond.png`}
             x={0} y={0} width={VB_W} height={VB_H}
             opacity={0.5} style={{ pointerEvents: 'none' }} />

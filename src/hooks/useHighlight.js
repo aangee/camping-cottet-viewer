@@ -20,7 +20,7 @@ export function useHighlight(selected, data) {
       if (!borne) return empty
       return {
         hebergements: new Set(borne.parcelles),
-        bornes_eau:   new Set([borne.id]),
+        bornes_eau:   new Set([borne.id, ...(borne.distribue_vers ?? [])]),
         bornes_elec:  new Set(),
       }
     }
@@ -31,7 +31,7 @@ export function useHighlight(selected, data) {
       return {
         hebergements: new Set(borne.parcelles),
         bornes_eau:   new Set(),
-        bornes_elec:  new Set([borne.id]),
+        bornes_elec:  new Set([borne.id, ...(borne.distribue_vers ?? [])]),
       }
     }
 

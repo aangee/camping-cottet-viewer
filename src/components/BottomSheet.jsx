@@ -9,6 +9,7 @@ const LABELS = {
   caravane:     'Caravane',
   emplacement_nu:'Emplacement nu',
   piscine:       'Piscine',
+  infra:         'Infrastructure',
 }
 
 function HebergementContent({ h }) {
@@ -26,6 +27,11 @@ function HebergementContent({ h }) {
           <span>{h.borne_elec ?? 'Non raccordé'}</span>
         </div>
       </div>
+      {h.note && (
+        <div style={{ marginTop: 12, color: '#94a3b8', fontSize: 13, fontStyle: 'italic' }}>
+          ⚠ {h.note}
+        </div>
+      )}
     </>
   )
 }
@@ -49,6 +55,25 @@ function BorneEauContent({ borne }) {
       ) : (
         <div className="sheet-label">Infrastructure (pas de parcelle numérotée)</div>
       )}
+      {borne.distribue_vers?.length > 0 && (
+        <>
+          <div className="sheet-label" style={{ marginTop: 12, marginBottom: 6 }}>Alimente les bornes :</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            {borne.distribue_vers.map(b => (
+              <span key={b} style={{
+                background: 'transparent', color: '#38bdf8',
+                border: '1px solid #38bdf8',
+                borderRadius: 6, padding: '2px 8px', fontSize: 13, fontWeight: 700
+              }}>{b}</span>
+            ))}
+          </div>
+        </>
+      )}
+      {borne.note && (
+        <div style={{ marginTop: 12, color: '#94a3b8', fontSize: 13, fontStyle: 'italic' }}>
+          ⚠ {borne.note}
+        </div>
+      )}
     </>
   )
 }
@@ -71,6 +96,25 @@ function BorneElecContent({ borne }) {
         </>
       ) : (
         <div className="sheet-label">Borne sans parcelles enregistrées</div>
+      )}
+      {borne.distribue_vers?.length > 0 && (
+        <>
+          <div className="sheet-label" style={{ marginTop: 12, marginBottom: 6 }}>Alimente les bornes :</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+            {borne.distribue_vers.map(b => (
+              <span key={b} style={{
+                background: 'transparent', color: '#fbbf24',
+                border: '1px solid #fbbf24',
+                borderRadius: 6, padding: '2px 8px', fontSize: 13, fontWeight: 700
+              }}>{b}</span>
+            ))}
+          </div>
+        </>
+      )}
+      {borne.note && (
+        <div style={{ marginTop: 12, color: '#94a3b8', fontSize: 13, fontStyle: 'italic' }}>
+          ⚠ {borne.note}
+        </div>
       )}
     </>
   )
