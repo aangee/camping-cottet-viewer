@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 
 const VB_W = 2560
@@ -66,7 +66,7 @@ function HebergementMarker({ h, isHighlighted, onClick }) {
         <circle className="pulse-ring" cx={h.cx} cy={h.cy} r={22}
           fill="none" stroke={colors.stroke} strokeWidth={2.5} opacity={0.9} />
       )}
-      <g transform={`translate(${h.cx}, ${h.cy})`} filter="url(#icon-border)">
+      <g transform={`translate(${h.cx}, ${h.cy})`}>
         {h.type === 'infra'
           ? <BuildingIcon fill={colors.fill} stroke={colors.stroke} />
           : <HouseIcon    fill={colors.fill} stroke={colors.stroke} />}
@@ -241,12 +241,25 @@ function zoomToFitSelection(transformRef, selected, data) {
   transformRef.current.setTransform(tx, ty, scale, 350, 'easeOut')
 }
 
+const CULL_MARGIN = 150
+
 export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSelectBorne, onDeselect }) {
   const transformRef = useRef(null)
+  const [xform, setXform] = useState({ scale: 0.3, positionX: 0, positionY: 0 })
 
   useEffect(() => {
     zoomToFitSelection(transformRef, selected, data)
   }, [selected, data])
+
+  function isVisible(x, y) {
+    const { scale, positionX, positionY } = xform
+    const sx = positionX + x * scale
+    const sy = positionY + y * scale
+    const w = window.innerWidth
+    const h = window.innerHeight
+    return sx > -CULL_MARGIN && sx < w + CULL_MARGIN &&
+           sy > -CULL_MARGIN && sy < h + CULL_MARGIN
+  }
 
   if (!data) return null
 
@@ -257,6 +270,10 @@ export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSe
       minScale={0.1}
       maxScale={4}
       centerOnInit
+      onInit={(ref) => setXform({ ...ref.state })}
+      onPanningStop={(ref) => setXform({ ...ref.state })}
+      onZoomStop={(ref) => setXform({ ...ref.state })}
+      onPinchingStop={(ref) => setXform({ ...ref.state })}
     >
       <TransformComponent
         wrapperStyle={{ width: '100vw', height: '100vh' }}
@@ -267,49 +284,44 @@ export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSe
           style={{ width: VB_W, height: VB_H, display: 'block' }}
           onClick={onDeselect}
         >
-          <defs>
-            <filter id="icon-border" x="-30%" y="-30%" width="160%" height="160%">
-              <feMorphology in="SourceAlpha" operator="dilate" radius="0.5" result="expanded"/>
-              <feFlood floodColor="white" floodOpacity="0.85" result="white"/>
-              <feComposite in="white" in2="expanded" operator="in" result="border"/>
-              <feMerge>
-                <feMergeNode in="border"/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-          </defs>
           <image href={`${import.meta.env.BASE_URL}plan_fond.png`}
             x={0} y={0} width={VB_W} height={VB_H}
             opacity={0.5} style={{ pointerEvents: 'none' }} />
 
           <ConnectionLines selected={selected} data={data} />
 
-          {data.hebergements.map(h => (
-            <HebergementMarker
-              key={h.id}
-              h={h}
-              isHighlighted={highlighted.hebergements.has(h.id)}
-              onClick={onSelectHebergement}
-            />
-          ))}
+          {data.hebergements
+            .filter(h => isVisible(h.cx, h.cy) || highlighted.hebergements.has(h.id))
+            .map(h => (
+              <HebergementMarker
+                key={h.id}
+                h={h}
+                isHighlighted={highlighted.hebergements.has(h.id)}
+                onClick={onSelectHebergement}
+              />
+            ))}
 
-          {data.bornes_eau.map(b => (
-            <BorneEauMarker
-              key={b.id}
-              b={b}
-              isHighlighted={highlighted.bornes_eau.has(b.id)}
-              onClick={(id) => onSelectBorne('borne_eau', id)}
-            />
-          ))}
+          {data.bornes_eau
+            .filter(b => isVisible(b.x, b.y) || highlighted.bornes_eau.has(b.id))
+            .map(b => (
+              <BorneEauMarker
+                key={b.id}
+                b={b}
+                isHighlighted={highlighted.bornes_eau.has(b.id)}
+                onClick={(id) => onSelectBorne('borne_eau', id)}
+              />
+            ))}
 
-          {data.bornes_elec.map(b => (
-            <BorneElecMarker
-              key={b.id}
-              b={b}
-              isHighlighted={highlighted.bornes_elec.has(b.id)}
-              onClick={(id) => onSelectBorne('borne_elec', id)}
-            />
-          ))}
+          {data.bornes_elec
+            .filter(b => isVisible(b.x, b.y) || highlighted.bornes_elec.has(b.id))
+            .map(b => (
+              <BorneElecMarker
+                key={b.id}
+                b={b}
+                isHighlighted={highlighted.bornes_elec.has(b.id)}
+                onClick={(id) => onSelectBorne('borne_elec', id)}
+              />
+            ))}
         </svg>
       </TransformComponent>
     </TransformWrapper>

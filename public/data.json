@@ -184,7 +184,7 @@
       "id": "22",
       "nom": "22",
       "type": "mh_2ch_4p",
-      "borne_eau": null,
+      "borne_eau": "EAU-07",
       "borne_elec": "ELEC-11",
       "cx": 1559,
       "cy": 903
@@ -536,6 +536,7 @@
       "y": 1073,
       "parcelles": [
         "21",
+        "22",
         "39",
         "40"
       ],
