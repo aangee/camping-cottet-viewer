@@ -184,7 +184,7 @@
       "id": "22",
       "nom": "22",
       "type": "mh_2ch_4p",
-      "borne_eau": "EAU-07",
+      "borne_eau": null,
       "borne_elec": "ELEC-11",
       "cx": 1559,
       "cy": 903
@@ -422,42 +422,6 @@
       "borne_elec": "ELEC-10",
       "cx": 644,
       "cy": 979
-    },
-    {
-      "id": "guinguette",
-      "nom": "Guinguette",
-      "type": "infra",
-      "borne_eau": "EAU-05",
-      "borne_elec": "ELEC-00",
-      "cx": 522,
-      "cy": 581
-    },
-    {
-      "id": "jeux-nord",
-      "nom": "Aire de jeux",
-      "type": "infra",
-      "borne_eau": "EAU-05",
-      "borne_elec": null,
-      "cx": 606,
-      "cy": 759
-    },
-    {
-      "id": "sanitaires",
-      "nom": "Sanitaires",
-      "type": "infra",
-      "borne_eau": "EAU-99",
-      "borne_elec": "ELEC-99",
-      "cx": 1374,
-      "cy": 1213
-    },
-    {
-      "id": "piscine",
-      "nom": "Piscine",
-      "type": "piscine",
-      "borne_eau": "EAU-09",
-      "borne_elec": "ELEC-00",
-      "cx": 738,
-      "cy": 561
     }
   ],
   "bornes_eau": [
@@ -471,8 +435,7 @@
         "2",
         "3",
         "4"
-      ],
-      "note": "Possibilité branchement tuyau d'arrosage"
+      ]
     },
     {
       "id": "EAU-02",
@@ -483,7 +446,7 @@
         "14",
         "15"
       ],
-      "note": "Yourte Yoann — Puits bas — Puits pompe (robinets eau potable)"
+      "note": "puit-pompe, puit bas, yoann"
     },
     {
       "id": "EAU-03",
@@ -507,27 +470,21 @@
         "12",
         "17"
       ],
-      "note": "Emplacement 13 non raccordé"
+      "note": "arriver du 13 (NON raccorder)"
     },
     {
       "id": "EAU-05",
       "num": "EAU-05",
       "x": 763,
       "y": 955,
-      "parcelles": [
-        "guinguette",
-        "jeux-nord"
-      ]
+      "parcelles": []
     },
     {
       "id": "EAU-06",
       "num": "EAU-06",
       "x": 1153,
       "y": 1204,
-      "parcelles": [],
-      "distribue_vers": [
-        "EAU-99"
-      ]
+      "parcelles": []
     },
     {
       "id": "EAU-07",
@@ -536,11 +493,9 @@
       "y": 1073,
       "parcelles": [
         "21",
-        "22",
         "39",
         "40"
-      ],
-      "note": "Puits eau potable"
+      ]
     },
     {
       "id": "EAU-08",
@@ -559,31 +514,8 @@
       "x": 710,
       "y": 427,
       "parcelles": [
-        "5",
-        "piscine"
-      ],
-      "note": "Vidange"
-    },
-    {
-      "id": "EAU-00",
-      "num": "EAU-00",
-      "x": 231,
-      "y": 674,
-      "parcelles": [],
-      "note": "Arrivée eau d'irrigation"
-    },
-    {
-      "id": "EAU-99",
-      "num": "EAU-99",
-      "x": 1384,
-      "y": 1291,
-      "parcelles": [
-        "sanitaires"
-      ],
-      "distribue_vers": [
-        "EAU-07"
-      ],
-      "note": "Vanne secteur EAU-07 — coupe eau potable + irrigation"
+        "5"
+      ]
     }
   ],
   "bornes_elec": [
@@ -598,23 +530,52 @@
       ]
     },
     {
-      "id": "ELEC-09",
-      "num": "ELEC-09",
-      "x": 1145,
-      "y": 692,
-      "parcelles": [
-        "7",
-        "14",
-        "15"
-      ]
+      "id": "ELEC-02",
+      "num": "ELEC-02",
+      "x": 1422,
+      "y": 1087,
+      "parcelles": []
     },
     {
-      "id": "ELEC-13",
-      "num": "ELEC-13",
+      "id": "ELEC-03",
+      "num": "ELEC-03",
+      "x": 1763,
+      "y": 847,
+      "parcelles": []
+    },
+    {
+      "id": "ELEC-04",
+      "num": "ELEC-04",
+      "x": 772,
+      "y": 941,
+      "parcelles": [],
+      "note": "juste des resident, borne avec conteur de consomation"
+    },
+    {
+      "id": "ELEC-05",
+      "num": "ELEC-05",
+      "x": 1145,
+      "y": 692,
+      "parcelles": [],
+      "note": "50 correspond a \"yo\" la propriétaire qui a une yourte sur le camping"
+    },
+    {
+      "id": "ELEC-06",
+      "num": "ELEC-06",
+      "x": 2026,
+      "y": 466,
+      "parcelles": []
+    },
+    {
+      "id": "ELEC-07",
+      "num": "ELEC-07",
       "x": 1953,
       "y": 519,
       "parcelles": [
-        "31"
+        "1",
+        "2",
+        "3",
+        "4"
       ]
     },
     {
@@ -628,51 +589,21 @@
       ]
     },
     {
-      "id": "ELEC-00",
-      "num": "ELEC-00",
+      "id": "ELEC-09",
+      "num": "ELEC-09",
       "x": 533,
       "y": 689,
       "parcelles": [
-        "piscine",
-        "guinguette"
-      ],
-      "distribue_vers": [
-        "ELEC-07",
-        "ELEC-08",
-        "ELEC-09",
-        "ELEC-10"
-      ]
-    },
-    {
-      "id": "ELEC-99",
-      "num": "ELEC-99",
-      "x": 1402,
-      "y": 1281,
-      "parcelles": [
-        "sanitaires"
-      ],
-      "distribue_vers": [
-        "ELEC-11",
-        "ELEC-12",
-        "ELEC-13",
-        "ELEC-14"
-      ]
-    },
-    {
-      "id": "ELEC-12",
-      "num": "ELEC-12",
-      "x": 1763,
-      "y": 847,
-      "parcelles": [
-        "36",
-        "38"
+        "7",
+        "14",
+        "15"
       ]
     },
     {
       "id": "ELEC-10",
       "num": "ELEC-10",
-      "x": 772,
-      "y": 941,
+      "x": 1402,
+      "y": 1281,
       "parcelles": [
         "11",
         "12",
@@ -683,34 +614,12 @@
     {
       "id": "ELEC-11",
       "num": "ELEC-11",
-      "x": 1422,
-      "y": 1087,
+      "x": 490,
+      "y": 249,
       "parcelles": [
         "22",
         "39",
         "40"
-      ]
-    },
-    {
-      "id": "ELEC-14",
-      "num": "ELEC-14",
-      "x": 2026,
-      "y": 466,
-      "parcelles": [
-        "32",
-        "34"
-      ]
-    },
-    {
-      "id": "ELEC-07",
-      "num": "ELEC-07",
-      "x": 490,
-      "y": 249,
-      "parcelles": [
-        "1",
-        "2",
-        "3",
-        "4"
       ]
     }
   ]
