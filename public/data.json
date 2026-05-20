@@ -14,7 +14,7 @@
       "nom": "1",
       "type": "mh_2ch_3p",
       "borne_eau": "EAU-01",
-      "borne_elec": "ELEC-07",
+      "borne_elec": "ELEC-11",
       "cx": 405,
       "cy": 362
     },
@@ -23,7 +23,7 @@
       "nom": "2",
       "type": "mh_2ch_3p",
       "borne_eau": "EAU-01",
-      "borne_elec": "ELEC-07",
+      "borne_elec": "ELEC-11",
       "cx": 356,
       "cy": 306
     },
@@ -32,7 +32,7 @@
       "nom": "3",
       "type": "mh_2ch_3p",
       "borne_eau": "EAU-01",
-      "borne_elec": "ELEC-07",
+      "borne_elec": "ELEC-11",
       "cx": 449,
       "cy": 272
     },
@@ -41,7 +41,7 @@
       "nom": "4",
       "type": "mh_2ch_3p",
       "borne_eau": "EAU-01",
-      "borne_elec": "ELEC-07",
+      "borne_elec": "ELEC-11",
       "cx": 519,
       "cy": 211
     },
@@ -68,7 +68,7 @@
       "nom": "7",
       "type": "resident",
       "borne_eau": "EAU-03",
-      "borne_elec": "ELEC-09",
+      "borne_elec": "ELEC-05",
       "cx": 1106,
       "cy": 558
     },
@@ -86,7 +86,7 @@
       "nom": "11",
       "type": "resident",
       "borne_eau": "EAU-04",
-      "borne_elec": "ELEC-10",
+      "borne_elec": "ELEC-04",
       "cx": 781,
       "cy": 881
     },
@@ -95,7 +95,7 @@
       "nom": "12",
       "type": "resident",
       "borne_eau": "EAU-04",
-      "borne_elec": "ELEC-10",
+      "borne_elec": "ELEC-04",
       "cx": 870,
       "cy": 953
     },
@@ -113,7 +113,7 @@
       "nom": "14",
       "type": "mh_2ch_4p",
       "borne_eau": "EAU-02",
-      "borne_elec": "ELEC-09",
+      "borne_elec": "ELEC-05",
       "cx": 1046,
       "cy": 733
     },
@@ -131,7 +131,7 @@
       "nom": "17",
       "type": "resident",
       "borne_eau": "EAU-04",
-      "borne_elec": "ELEC-10",
+      "borne_elec": "ELEC-04",
       "cx": 1096,
       "cy": 907
     },
@@ -158,7 +158,7 @@
       "nom": "15",
       "type": "resident",
       "borne_eau": "EAU-02",
-      "borne_elec": "ELEC-09",
+      "borne_elec": "ELEC-05",
       "cx": 1212,
       "cy": 618
     },
@@ -185,7 +185,7 @@
       "nom": "22",
       "type": "mh_2ch_4p",
       "borne_eau": null,
-      "borne_elec": "ELEC-11",
+      "borne_elec": "ELEC-02",
       "cx": 1559,
       "cy": 903
     },
@@ -266,7 +266,7 @@
       "nom": "31",
       "type": "dome_cocoon",
       "borne_eau": null,
-      "borne_elec": "ELEC-13",
+      "borne_elec": "ELEC-07",
       "cx": 1991,
       "cy": 336
     },
@@ -275,7 +275,7 @@
       "nom": "32",
       "type": "dome_cocoon",
       "borne_eau": null,
-      "borne_elec": "ELEC-14",
+      "borne_elec": "ELEC-06",
       "cx": 2125,
       "cy": 429
     },
@@ -293,7 +293,7 @@
       "nom": "34",
       "type": "resident",
       "borne_eau": null,
-      "borne_elec": "ELEC-14",
+      "borne_elec": "ELEC-06",
       "cx": 1995,
       "cy": 616
     },
@@ -311,7 +311,7 @@
       "nom": "36",
       "type": "emplacement_nu",
       "borne_eau": null,
-      "borne_elec": "ELEC-12",
+      "borne_elec": "ELEC-03",
       "cx": 1847,
       "cy": 826
     },
@@ -329,7 +329,7 @@
       "nom": "38",
       "type": "caravane",
       "borne_eau": null,
-      "borne_elec": "ELEC-12",
+      "borne_elec": "ELEC-03",
       "cx": 1756,
       "cy": 946
     },
@@ -338,7 +338,7 @@
       "nom": "39",
       "type": "resident",
       "borne_eau": "EAU-07",
-      "borne_elec": "ELEC-11",
+      "borne_elec": "ELEC-02",
       "cx": 1669,
       "cy": 1068
     },
@@ -347,7 +347,7 @@
       "nom": "40",
       "type": "mh_2ch_4p",
       "borne_eau": "EAU-07",
-      "borne_elec": "ELEC-11",
+      "borne_elec": "ELEC-02",
       "cx": 1576,
       "cy": 1140
     },
@@ -419,9 +419,45 @@
       "nom": "49",
       "type": "resident",
       "borne_eau": "EAU-08",
-      "borne_elec": "ELEC-10",
+      "borne_elec": "ELEC-04",
       "cx": 644,
       "cy": 979
+    },
+    {
+      "id": "piscine",
+      "nom": "PISCINE",
+      "type": "piscine",
+      "borne_eau": "EAU-09",
+      "borne_elec": "ELEC-09",
+      "cx": 738,
+      "cy": 561
+    },
+    {
+      "id": "guinguette",
+      "nom": "GUINGUETTE",
+      "type": "infra",
+      "borne_eau": "EAU-05",
+      "borne_elec": "ELEC-09",
+      "cx": 522,
+      "cy": 581
+    },
+    {
+      "id": "jeux_nord",
+      "nom": "AIRE DE JEUX",
+      "type": "infra",
+      "borne_eau": "EAU-05",
+      "borne_elec": null,
+      "cx": 606,
+      "cy": 759
+    },
+    {
+      "id": "sanitaires",
+      "nom": "SANITAIRES",
+      "type": "infra",
+      "borne_eau": "EAU-99",
+      "borne_elec": "ELEC-10",
+      "cx": 1374,
+      "cy": 1213
     }
   ],
   "bornes_eau": [
@@ -435,7 +471,8 @@
         "2",
         "3",
         "4"
-      ]
+      ],
+      "note": "Possibilité branchement tuyau d'arrosage"
     },
     {
       "id": "EAU-02",
@@ -446,7 +483,7 @@
         "14",
         "15"
       ],
-      "note": "puit-pompe, puit bas, yoann"
+      "note": "Yourte Yoann — Puits bas — Puits pompe (robinets eau potable)"
     },
     {
       "id": "EAU-03",
@@ -470,14 +507,17 @@
         "12",
         "17"
       ],
-      "note": "arriver du 13 (NON raccorder)"
+      "note": "Emplacement 13 non raccordé"
     },
     {
       "id": "EAU-05",
       "num": "EAU-05",
       "x": 763,
       "y": 955,
-      "parcelles": []
+      "parcelles": [
+        "guinguette",
+        "jeux_nord"
+      ]
     },
     {
       "id": "EAU-06",
@@ -495,7 +535,8 @@
         "21",
         "39",
         "40"
-      ]
+      ],
+      "note": "Puits eau potable"
     },
     {
       "id": "EAU-08",
@@ -514,7 +555,30 @@
       "x": 710,
       "y": 427,
       "parcelles": [
-        "5"
+        "5",
+        "piscine"
+      ],
+      "note": "Vidange"
+    },
+    {
+      "id": "EAU-00",
+      "num": "EAU-00",
+      "x": 231,
+      "y": 674,
+      "parcelles": [],
+      "note": "Arrivée eau d'irrigation"
+    },
+    {
+      "id": "EAU-99",
+      "num": "EAU-99",
+      "x": 1384,
+      "y": 1291,
+      "parcelles": [
+        "sanitaires"
+      ],
+      "note": "Vanne secteur EAU-07 — coupe eau potable + irrigation",
+      "distribue_vers": [
+        "EAU-07"
       ]
     }
   ],
@@ -534,21 +598,33 @@
       "num": "ELEC-02",
       "x": 1422,
       "y": 1087,
-      "parcelles": []
+      "parcelles": [
+        "22",
+        "39",
+        "40"
+      ]
     },
     {
       "id": "ELEC-03",
       "num": "ELEC-03",
       "x": 1763,
       "y": 847,
-      "parcelles": []
+      "parcelles": [
+        "36",
+        "38"
+      ]
     },
     {
       "id": "ELEC-04",
       "num": "ELEC-04",
       "x": 772,
       "y": 941,
-      "parcelles": [],
+      "parcelles": [
+        "11",
+        "12",
+        "17",
+        "49"
+      ],
       "note": "juste des resident, borne avec conteur de consomation"
     },
     {
@@ -556,7 +632,11 @@
       "num": "ELEC-05",
       "x": 1145,
       "y": 692,
-      "parcelles": [],
+      "parcelles": [
+        "7",
+        "14",
+        "15"
+      ],
       "note": "50 correspond a \"yo\" la propriétaire qui a une yourte sur le camping"
     },
     {
@@ -564,7 +644,10 @@
       "num": "ELEC-06",
       "x": 2026,
       "y": 466,
-      "parcelles": []
+      "parcelles": [
+        "32",
+        "34"
+      ]
     },
     {
       "id": "ELEC-07",
@@ -572,10 +655,7 @@
       "x": 1953,
       "y": 519,
       "parcelles": [
-        "1",
-        "2",
-        "3",
-        "4"
+        "31"
       ]
     },
     {
@@ -594,9 +674,14 @@
       "x": 533,
       "y": 689,
       "parcelles": [
-        "7",
-        "14",
-        "15"
+        "guinguette",
+        "piscine"
+      ],
+      "distribue_vers": [
+        "ELEC-04",
+        "ELEC-05",
+        "ELEC-08",
+        "ELEC-11"
       ]
     },
     {
@@ -605,10 +690,13 @@
       "x": 1402,
       "y": 1281,
       "parcelles": [
-        "11",
-        "12",
-        "17",
-        "49"
+        "sanitaires"
+      ],
+      "distribue_vers": [
+        "ELEC-02",
+        "ELEC-03",
+        "ELEC-06",
+        "ELEC-07"
       ]
     },
     {
@@ -617,9 +705,10 @@
       "x": 490,
       "y": 249,
       "parcelles": [
-        "22",
-        "39",
-        "40"
+        "1",
+        "2",
+        "3",
+        "4"
       ]
     }
   ]
