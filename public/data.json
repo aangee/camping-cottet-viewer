@@ -428,7 +428,7 @@
       "nom": "PISCINE",
       "type": "piscine",
       "borne_eau": "EAU-09",
-      "borne_elec": "ELEC-09",
+      "borne_elec": "ELEC-G01",
       "cx": 738,
       "cy": 561
     },
@@ -437,7 +437,7 @@
       "nom": "GUINGUETTE",
       "type": "infra",
       "borne_eau": "EAU-05",
-      "borne_elec": "ELEC-09",
+      "borne_elec": "ELEC-G01",
       "cx": 522,
       "cy": 581
     },
@@ -455,7 +455,7 @@
       "nom": "SANITAIRES",
       "type": "infra",
       "borne_eau": "EAU-99",
-      "borne_elec": "ELEC-10",
+      "borne_elec": "ELEC-G02",
       "cx": 1374,
       "cy": 1213
     }
@@ -669,8 +669,8 @@
       ]
     },
     {
-      "id": "ELEC-09",
-      "num": "ELEC-09",
+      "id": "ELEC-G01",
+      "num": "ELEC-G01",
       "x": 533,
       "y": 689,
       "parcelles": [
@@ -685,8 +685,8 @@
       ]
     },
     {
-      "id": "ELEC-10",
-      "num": "ELEC-10",
+      "id": "ELEC-G02",
+      "num": "ELEC-G02",
       "x": 1402,
       "y": 1281,
       "parcelles": [
@@ -709,6 +709,18 @@
         "2",
         "3",
         "4"
+      ]
+    },
+    {
+      "id": "ELEC-G00",
+      "num": "ELEC-G00",
+      "x": 225,
+      "y": 336,
+      "parcelles": [],
+      "note": "arriver general du camping",
+      "distribue_vers": [
+        "ELEC-G01",
+        "ELEC-G02"
       ]
     }
   ]
