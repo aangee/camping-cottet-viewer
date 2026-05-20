@@ -10,7 +10,7 @@ PWA mobile-first publique, **lecture seule**, pour consulter le plan du camping 
 
 ## Position dans la suite
 
-Consommateur du studio admin (cf. `Apps/CLAUDE.md`). Reçoit ses données via `public/data.json`, généré par le module `viewer` du studio puis poussé ici via `npm run sync:viewer` (script `Plan_Admin/tools/sync_viewer_data.mjs`).
+Consommateur du studio admin (cf. `Apps/CLAUDE.md`). Reçoit ses données via `public/data.json`, généré par le module `viewer` du studio puis poussé ici via `npm run sync:viewer` (script `app-admin/tools/sync_viewer_data.mjs`).
 
 **Ne jamais éditer `public/data.json` à la main.**
 
@@ -50,7 +50,7 @@ Coords en pixels SVG (viewBox 2000×1224).
 
 ## Build & deploy
 
-- `vite.config.js` : `base: '/camping-cottet-viewer/'`, plugin PWA autoUpdate
+- `vite.config.js` : `base: '/camping-cottet-viewer/'` → ⚠️ **à mettre à jour en `/camping-viewer/`** avant prochain déploiement (repo renommé 2026-05-20)
 - GitHub Actions : `.github/workflows/deploy.yml` (node 20, `npm ci --legacy-peer-deps`, deploy Pages)
 
 ## Scripts npm
