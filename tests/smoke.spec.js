@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-const URL = '/camping-cottet-viewer/'
+const URL = '/camping-viewer/'
 
 test('chargement — SVG visible, aucune erreur console', async ({ page }) => {
   const errors = []

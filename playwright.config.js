@@ -11,7 +11,7 @@ export default defineConfig({
   },
   webServer: {
     command: 'npm run build && npm run preview -- --host',
-    url: 'http://localhost:4173/camping-cottet-viewer/',
+    url: 'http://localhost:4173/camping-viewer/',
     reuseExistingServer: true,
     timeout: 60000,
   },
