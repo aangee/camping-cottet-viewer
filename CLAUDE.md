@@ -50,7 +50,7 @@ Coords en pixels SVG (viewBox 2000×1224).
 
 ## Build & deploy
 
-- `vite.config.js` : `base: '/camping-cottet-viewer/'` → ⚠️ **à mettre à jour en `/camping-viewer/`** avant prochain déploiement (repo renommé 2026-05-20)
+- `vite.config.js` : `base: '/camping-viewer/'` (mis à jour 2026-05-20 après renommage repo)
 - GitHub Actions : `.github/workflows/deploy.yml` (node 20, `npm ci --legacy-peer-deps`, deploy Pages)
 
 ## Scripts npm

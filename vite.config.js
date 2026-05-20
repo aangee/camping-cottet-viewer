@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  base: '/camping-cottet-viewer/',
+  base: '/camping-viewer/',
   plugins: [
     react(),
     VitePWA({
@@ -16,8 +16,8 @@ export default defineConfig({
         theme_color: '#0f172a',
         background_color: '#0f172a',
         display: 'standalone',
-        start_url: '/camping-cottet-viewer/',
-        scope: '/camping-cottet-viewer/',
+        start_url: '/camping-viewer/',
+        scope: '/camping-viewer/',
         icons: [
           { src: 'pwa-64x64.png',   sizes: '64x64',   type: 'image/png' },
           { src: 'pwa-192x192.png', sizes: '192x192', type: 'image/png' },
