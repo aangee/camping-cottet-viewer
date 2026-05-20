@@ -1,6 +1,6 @@
 # CLAUDE.md — Viewer Camping Cottet
 
-**Chemin :** `L:/CORE/labs/Camping_Cottet_2026/Apps/position-borne-elec-h2o/Viewer/`
+**Chemin :** `L:/CORE/labs/Camping_Cottet_2026/Apps/app-viewer/`
 **Stack :** Vite 8 + React 19 + PWA + Playwright
 **NSM project_id :** `p-mp9r25nqaks`
 
