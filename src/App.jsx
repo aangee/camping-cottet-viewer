@@ -2,17 +2,22 @@ import { useState, useEffect } from 'react'
 import { PlanSVG } from './components/PlanSVG'
 import { BottomSheet } from './components/BottomSheet'
 import { InstallPrompt } from './components/InstallPrompt'
+import { DataFreshnessWarning } from './components/DataFreshnessWarning'
 import { useHighlight } from './hooks/useHighlight'
 
 export default function App() {
   const [data, setData] = useState(null)
+  const [meta, setMeta] = useState(null)
   const [dataError, setDataError] = useState(false)
   const [selected, setSelected] = useState(null)
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data.json`)
       .then(r => r.json())
-      .then(setData)
+      .then(({ _meta, ...viewerData }) => {
+        setMeta(_meta ?? null)
+        setData(viewerData)
+      })
       .catch(() => setDataError(true))
   }, [])
 
@@ -30,6 +35,7 @@ export default function App() {
 
   return (
     <>
+      <DataFreshnessWarning meta={meta} />
       <InstallPrompt />
       <PlanSVG
         data={data}

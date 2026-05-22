@@ -33,10 +33,19 @@ src/
 Top-level :
 ```json
 {
+  "_meta": {
+    "schema_version": "2",
+    "generated_at": "2026-05-22T...",
+    "content_hash": "a3f9c12b...",
+    "refresh_hint_days": 30
+  },
   "hebergements": [{ "id", "nom", "type", "borne_eau", "borne_elec", "cx", "cy" }],
   "bornes_eau":   [{ "id": "EAU-XX", "num", "x", "y", "parcelles": [...], "note"? }],
   "bornes_elec":  [{ "id": "ELEC-XX", "num", "x", "y", "parcelles": [...], "distribue_vers": [...]?, "note"? }]
 }
+```
+
+`_meta` est destructuré dans `App.jsx` avant `setData()` — les composants ne le voient pas. Si `generated_at` dépasse `refresh_hint_days` jours, `DataFreshnessWarning` affiche un bandeau ambre.
 ```
 
 Coords en pixels SVG (viewBox 2000×1224).
