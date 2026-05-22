@@ -57,9 +57,13 @@ function HebergementMarker({ h, isHighlighted, onClick }) {
   const colors = TYPE_COLORS[h.type] ?? { fill: '#1f2937', stroke: '#6b7280' }
   return (
     <g
+      role="button"
+      aria-label={`Hébergement ${h.nom}`}
+      tabIndex={0}
       className={isHighlighted ? 'marker-highlighted' : ''}
       style={{ cursor: 'pointer' }}
       onClick={(e) => { e.stopPropagation(); onClick(h.id) }}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(h.id) } }}
     >
       <circle cx={h.cx} cy={h.cy} r={28} fill="transparent" />
       {isHighlighted && (
@@ -83,9 +87,13 @@ function HebergementMarker({ h, isHighlighted, onClick }) {
 function BorneEauMarker({ b, isHighlighted, onClick }) {
   return (
     <g
+      role="button"
+      aria-label={`Borne eau ${b.num}`}
+      tabIndex={0}
       className={isHighlighted ? 'marker-highlighted' : ''}
       style={{ cursor: 'pointer' }}
       onClick={(e) => { e.stopPropagation(); onClick(b.id) }}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(b.id) } }}
     >
       <circle cx={b.x} cy={b.y} r={28} fill="transparent" />
       {isHighlighted && (
@@ -106,9 +114,13 @@ function BorneEauMarker({ b, isHighlighted, onClick }) {
 function BorneElecMarker({ b, isHighlighted, onClick }) {
   return (
     <g
+      role="button"
+      aria-label={`Borne électrique ${b.num}`}
+      tabIndex={0}
       className={isHighlighted ? 'marker-highlighted' : ''}
       style={{ cursor: 'pointer' }}
       onClick={(e) => { e.stopPropagation(); onClick(b.id) }}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick(b.id) } }}
     >
       <circle cx={b.x} cy={b.y} r={28} fill="transparent" />
       {isHighlighted && (
@@ -280,6 +292,8 @@ export function PlanSVG({ data, highlighted, selected, onSelectHebergement, onSe
         contentStyle={{ width: VB_W, height: VB_H }}
       >
         <svg
+          role="application"
+          aria-label="Plan du camping"
           viewBox={`0 0 ${VB_W} ${VB_H}`}
           style={{ width: VB_W, height: VB_H, display: 'block' }}
           onClick={onDeselect}
