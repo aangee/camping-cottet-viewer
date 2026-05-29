@@ -1,4 +1,10 @@
 {
+  "_meta": {
+    "schema_version": 2,
+    "generated_at": "2026-05-29T10:41:01.997Z",
+    "content_hash": "9af95e8c9e39",
+    "refresh_hint_days": 30
+  },
   "hebergements": [
     {
       "id": "9",
