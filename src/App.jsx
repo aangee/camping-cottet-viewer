@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { SCHEMA_VERSIONS, safeValidateViewerData } from '@aangee/cottet-schema'
-import { PlanSVG } from './components/PlanSVG'
+import { PlanSVG } from '@aangee/cottet-plan-lib/assembly'
+import { useHighlight } from '@aangee/cottet-plan-lib/content'
 import { BottomSheet } from './components/BottomSheet'
 import { InstallPrompt } from './components/InstallPrompt'
 import { DataFreshnessWarning } from './components/DataFreshnessWarning'
 import { SchemaVersionWarning } from './components/SchemaVersionWarning'
-import { useHighlight } from './hooks/useHighlight'
 
 const STRICT = import.meta.env.VITE_SCHEMA_STRICT === 'true'
 
@@ -71,6 +71,7 @@ export default function App() {
         onSelectHebergement={handleSelectHebergement}
         onSelectBorne={handleSelectBorne}
         onDeselect={handleDeselect}
+        planImageSrc={`${import.meta.env.BASE_URL}plan_fond.png`}
       />
       <BottomSheet
         selected={selected}
