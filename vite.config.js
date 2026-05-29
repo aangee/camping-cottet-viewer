@@ -36,7 +36,7 @@ export default defineConfig({
             handler: 'NetworkFirst',
             options: {
               cacheName: 'camping-data',
-              networkTimeoutSeconds: 3,
+              networkTimeoutSeconds: 5,
               expiration: {
                 maxEntries: 2,
                 maxAgeSeconds: 60 * 60 * 24 * 30,
