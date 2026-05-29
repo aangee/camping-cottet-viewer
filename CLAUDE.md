@@ -34,7 +34,7 @@ Top-level :
 ```json
 {
   "_meta": {
-    "schema_version": "2",
+    "schema_version": 2,
     "generated_at": "2026-05-22T...",
     "content_hash": "a3f9c12b...",
     "refresh_hint_days": 30

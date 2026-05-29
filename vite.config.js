@@ -26,8 +26,25 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
+        // data.json est servi via runtimeCaching (NetworkFirst) pour que le bump
+        // de schema_version cote producteur soit visible sans attendre un new SW.
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        runtimeCaching: [
+          {
+            urlPattern: /\/data\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'camping-data',
+              networkTimeoutSeconds: 3,
+              expiration: {
+                maxEntries: 2,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
       }
     })
   ]
