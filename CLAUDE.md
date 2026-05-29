@@ -48,7 +48,7 @@ Top-level :
 `_meta` est destructuré dans `App.jsx` avant `setData()` — les composants ne le voient pas. Si `generated_at` dépasse `refresh_hint_days` jours, `DataFreshnessWarning` affiche un bandeau ambre.
 ```
 
-Coords en pixels SVG (viewBox 2000×1224).
+Coords en pixels SVG (viewBox 2560×1567, taille native plan_fond.png).
 
 ## Conventions
 
