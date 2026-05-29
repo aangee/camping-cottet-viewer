@@ -20,11 +20,12 @@ Consommateur du studio admin (cf. `Apps/CLAUDE.md`). Reçoit ses données via `p
 src/
   App.jsx                — État racine (data, selected), fetch data.json
   components/
-    PlanSVG.jsx          — Rendu SVG zoom/pan (react-zoom-pan-pinch), culling viewport
     BottomSheet.jsx      — Panneau détails hébergement / borne sélectionnés
     InstallPrompt.jsx    — Prompt iOS « Ajouter à l'écran d'accueil »
-  hooks/
-    useHighlight.js      — Calcule le Set d'IDs liés à la sélection (liaisons)
+    DataFreshnessWarning.jsx — Bandeau ambre si données > refresh_hint_days
+    SchemaVersionWarning.jsx — Bandeau rouge si schema_version incompatible
+
+Note : PlanSVG et useHighlight sont fournis par @aangee/cottet-plan-lib (C2 — 2026-05-29)
   index.css              — Design tokens (dark theme), animations pulse
 ```
 
